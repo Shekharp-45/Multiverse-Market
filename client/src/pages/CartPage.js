@@ -1,4 +1,4 @@
-import React, { useState , useEffect} from "react";
+import React, { useState, useEffect } from "react";
 import Layout from "./../components/layout/layout";
 import { useCart } from "../context/cart";
 import { useAuth } from "../context/auth";
@@ -11,7 +11,7 @@ import "../styles/CartStyles.css";
 const CartPage = () => {
   const [auth, setAuth] = useAuth();
   const [cart, setCart] = useCart();
-  const[clientToken, setClientToken]=useState("");
+  const [clientToken, setClientToken] = useState("");
   const [instance, setInstance] = useState("");
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
@@ -44,10 +44,12 @@ const CartPage = () => {
     }
   };
 
-   //get payment gateway token
-   const getToken = async () => {
+  //get payment gateway token
+  const getToken = async () => {
     try {
-      const { data } = await axios.get("http://localhost:8080/api/v1/product/braintree/token");
+      const { data } = await axios.get(
+        "https://multiverse-market-backend.onrender.com/api/v1/product/braintree/token"
+      );
       setClientToken(data?.clientToken);
     } catch (error) {
       console.log(error);
@@ -62,10 +64,13 @@ const CartPage = () => {
     try {
       setLoading(true);
       const { nonce } = await instance.requestPaymentMethod();
-      const { data } = await axios.post("http://localhost:8080/api/v1/product/braintree/payment", {
-        nonce,
-        cart,
-      });
+      const { data } = await axios.post(
+        "https://multiverse-market-backend.onrender.com/api/v1/product/braintree/payment",
+        {
+          nonce,
+          cart,
+        }
+      );
       setLoading(false);
       localStorage.removeItem("cart");
       setCart([]);
@@ -98,7 +103,7 @@ const CartPage = () => {
             {cart?.map((p) => (
               <div className="row mb-2 p-3 card flex-row">
                 <div className="col-md-4">
-                <img
+                  <img
                     src={`${process.env.REACT_APP_API}/api/v1/product/product-photo/${p._id}`}
                     className="card-img-top object-fit-contain "
                     alt={p.name}
@@ -160,30 +165,30 @@ const CartPage = () => {
               </div>
             )}
             <div className="mt-2">
-                {!clientToken || !auth?.token || !cart?.length ? (
-                  ""
-                ) : (
-                  <>
-                    <DropIn
-                      options={{
-                        authorization: clientToken,
-                        paypal: {
-                          flow: "vault",
-                        },
-                      }}
-                      onInstance={(instance) => setInstance(instance)}
-                    />
+              {!clientToken || !auth?.token || !cart?.length ? (
+                ""
+              ) : (
+                <>
+                  <DropIn
+                    options={{
+                      authorization: clientToken,
+                      paypal: {
+                        flow: "vault",
+                      },
+                    }}
+                    onInstance={(instance) => setInstance(instance)}
+                  />
 
-                    <button
-                      className="btn btn-primary"
-                      onClick={handlePayment}
-                      disabled={loading || !instance || !auth?.user?.address}
-                    >
-                      {loading ? "Processing ...." : "Make Payment"}
-                    </button>
-                  </>
-                )}
-              </div>
+                  <button
+                    className="btn btn-primary"
+                    onClick={handlePayment}
+                    disabled={loading || !instance || !auth?.user?.address}
+                  >
+                    {loading ? "Processing ...." : "Make Payment"}
+                  </button>
+                </>
+              )}
+            </div>
           </div>
         </div>
       </div>
