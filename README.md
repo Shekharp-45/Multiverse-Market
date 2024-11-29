@@ -61,24 +61,24 @@ Create a `.env` file in the `/server` directory with the following variables:
 
 Start the backend server:
 
-npm start
+- npm start
 
 
 ### 3. Frontend Setup
 Navigate to the `/client` directory and install dependencies:
 
-cd ../client
-npm install
+- cd ../client
+- npm install
 
 
 Create a `.env` file in the `/client` directory with the following variables:
 
-REACT_APP_API=http:your_port_url/api/v1
+- REACT_APP_API=http:your_port_url/api/v1
 
 
 Start the frontend development server:
 
-npm start
+- npm start
 
 
 ## 📄 API Endpoints
@@ -112,13 +112,13 @@ npm start
 ## 📷 Screenshots
 
 ### Home Page
-![Home Page Screenshot](screenshot/homepage.png)
+![Main home page](https://github.com/user-attachments/assets/ef75460a-bf75-4b26-b91d-a76d8801ba9b)
 
 ### Product Page
-![Product Page Screenshot](screenshot/productpage.png)
+![product page](https://github.com/user-attachments/assets/50a84ff9-26df-4ed2-afb2-80e9ac55047d)
 
 ### Admin Dashboard
-![Admin Dashboard Screenshot](screenshot/admindashboard.png)
+![admin dashboard](https://github.com/user-attachments/assets/ea076a70-d000-4017-adfc-af996c26c7bf)
 
 ---
 
